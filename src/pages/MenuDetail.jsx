@@ -1,36 +1,46 @@
-import { useParams } from "react-router-dom"
-import axios from 'axios'
-import { useEffect, useState } from 'react';
+import axios from "axios";
+import { useEffect, useState } from "react";
+import { useParams, useNavigate } from "react-router-dom";
 
 const MenuDetail = () => {
-    // const param = useParams()
-    const [menu, setMenu] = useState([]);
+  const [menu, setMenu] = useState({});
+  const navigate = useNavigate();
 
-    const {id} = useParams ()
-    const getMenuDetail = () => {
+  const { id } = useParams();
+
+  const getMenuDetail = () => {
     axios
       .get(`https://api.mudoapi.tech/menu/${id}`)
-      .then((res) => {
-        setMenu(res.data?.data);
-      })
-      .catch((err) => {
-        console.log(err)
-      });
-  }
+      .then((res) => setMenu(res?.data?.data))
+      .catch((err) => console.log(err));
+  };
+
+  const handelDelete = () => {
+    const token = localStorage.getItem("access_token");
+    const config = {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    };
+    axios
+      .delete(`https://api.mudoapi.tech/menu/${id}`, config)
+      .then((res) => navigate("/menu"))
+      .catch((err) => console.log(err));
+  };
+
   useEffect(() => {
-      getMenuDetail()
-  })
-    
-    
+    getMenuDetail();
+  }, []);
 
-    return (
-        <div style={{textAlign: 'center',border: '5px solid black', padding: '10px',margin: '20px'}}>
-            <h1>Menu detail</h1><hr/>
-            <h1 style={{marginTop: '50px'}}>{menu?.name}</h1>
-            <h3 style={{marginBottom: '50px'}}>{menu?.description}</h3>
-            <img src={menu?.imageUrl} alt={menu?.name} width={500} />
-        </div>
-    )
-}
+  return (
+    <div>
+      <h1>Menu detail</h1>
+      <h1>nama menu : {menu?.name}</h1>
+      <h1>deskripsi : {menu?.description}</h1>
+      <button onClick={handelDelete}>delete</button>
+      <img src={menu?.imageUrl} />
+    </div>
+  );
+};
 
-export default MenuDetail
+export default MenuDetail;
