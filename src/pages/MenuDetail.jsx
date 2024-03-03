@@ -33,12 +33,12 @@ const MenuDetail = () => {
   }, []);
 
   return (
-    <div>
+    <div className="container">
       <h1>Menu detail</h1>
       <h1>nama menu : {menu?.name}</h1>
       <h1>deskripsi : {menu?.description}</h1>
-      <button onClick={handelDelete}>delete</button>
       <img src={menu?.imageUrl} />
+      <button onClick={handelDelete}>delete</button>
     </div>
   );
 };

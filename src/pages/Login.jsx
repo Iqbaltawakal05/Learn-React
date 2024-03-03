@@ -1,7 +1,6 @@
-import { useState } from 'react';
-import axios from 'axios'
+import axios from "axios";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-
 
 const Login = () => {
   const [username, setUsername] = useState("");
@@ -9,7 +8,8 @@ const Login = () => {
   const [notif, setNotif] = useState("");
   const [loading, setLoading] = useState(false);
 
-  const Navigate = useNavigate();
+  const navigate = useNavigate();
+
   const handleUsernameChange = (e) => {
     setUsername(e.target.value);
   };
@@ -20,53 +20,55 @@ const Login = () => {
 
   const handleLogin = () => {
     const payload = {
-        username: username,
-        password: password,
-    }
+      username: username,
+      password: password,
+    }; //data yang akan di berikan ke api
 
-    setLoading(true)
+    setLoading(true);
 
     axios
-        .post('https://api.mudoapi.tech/login', payload)
-        .then((res) => {
-            setNotif("Login berhasil");
-            console.log(res);
-            const token = res?.data?.data?.token
-            localStorage.setItem('access_token', token);
-            setLoading(false)
-             setTimeout(() => {
-                 Navigate('/menu')
-             }, 1000);
-        })
-        .catch((err) => {
-            console.log(err.response);
-            setLoading(false)
-            setNotif(err.response?.data?.message)
-        })
+      .post("https://api.mudoapi.tech/login", payload)
+      .then((res) => {
+        setNotif("login berhasil");
+        const token = res?.data?.data?.token;
+        localStorage.setItem("access_token", token);
+        setLoading(false);
+        setTimeout(() => {
+          navigate("/menu");
+        }, 2000);
+      })
+      .catch((err) => {
+        setLoading(false);
+        console.log(err.response);
+        setNotif(err?.response?.data?.message);
+      });
   };
 
   return (
-    <div>
-    {!!notif.length && <h1>{notif}</h1>}
-    <h1 style={{textAlign: 'center'}}>Login</h1>
-    <div style={{display: 'flex',flexDirection: 'column', justifyContent: 'center', alignItems: 'center', gap: '20px', height: '50vh'}}>
-    <input
+    <div className="login">
+      <div className="form">
+      <h1>Login</h1>
+      {!!notif.length && <h1>{notif}</h1>}
+      <input
         type="text"
-        placeholder="Username"
+        placeholder="username"
         onChange={handleUsernameChange}
-        value = {username}
-    />
-    <input
-        type="password"
-        placeholder="Password"
-        onChange={handlePasswordChange}
-        value = {password}
+        value={username}
       />
-    <button disabled={loading ? true : false} onClick={handleLogin}>{loading ? 'Loading...' : 'Login'}</button>
-    <button onClick={() => Navigate(-1)}>back</button>
-    </div>
+      <input
+        type="password"
+        placeholder="password"
+        onChange={handlePasswordChange}
+        value={password}
+      />
+
+      <button disabled={loading ? true : false} onClick={handleLogin}>
+        {loading ? "loading..." : "Login"}
+      </button>
+      <button onClick={() => navigate(-1)}>Back</button>
+      </div>
     </div>
   );
 };
 
-export default Login
+export default Login;

@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
-import Navbar from "../Components/Navbar";
+import Navbar from "../components/Navbar";
 import axios from "axios";
 import { Link } from "react-router-dom";
+import Layout from "../components/Layout";
 
 const Menu = () => {
   const [menu, setMenu] = useState([]);
@@ -57,12 +58,12 @@ const Menu = () => {
   console.log(pagination);
 
   return (
-    <div>
-      <Navbar />
+    <Layout>
+      <div className="menu">
       <h1>menu page</h1>
-      <Link to={"/add-menu"}>Add Menu</Link>
+      <Link to={"/add-menu"} className="addmenu">Add Menu</Link>
       {menu.map((item) => (
-        <div>
+        <div className="menu-item">
           <h1>{item.name}</h1>
           <p>{item.description}</p>
           <img width={"40px"} src={item.imageUrl} />
@@ -71,7 +72,7 @@ const Menu = () => {
           </Link>
         </div>
       ))}
-      <div>
+      <div className="pagination">
         <button disabled={pagination.currentPage === 1} onClick={handleBack}>
           back
         </button>
@@ -79,7 +80,8 @@ const Menu = () => {
           next
         </button>
       </div>
-    </div>
+      </div>
+    </Layout>
   );
 };
 
