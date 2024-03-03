@@ -1,0 +1,30 @@
+.listmenu {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    container: container;
+}
+
+.list {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+    width: 40vw;
+    
+
+}
+
+.menu {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    height: 20vh;
+    width: 100vw;
+    border: 2px solid #eeeeee;
+    margin-top: 10vh;
+    background-color: #eeeeee;
+}

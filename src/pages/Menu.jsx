@@ -27,6 +27,12 @@ const Menu = () => {
         <div style={{textAlign: 'center'}}>
             <Navbar />
             <h1>menu page</h1>
+            <Link to={"/Add-menu"} style={{width: '300px', height: '30px', fontSize: '20px'}}>
+              Add menu
+            </Link><br />
+            <Link to={"/List-menu"} style={{width: '300px', height: '30px', fontSize: '20px'}}>
+              Listmenu
+            </Link>
           {
             menu.map(item => (
               <div style={{border: '5px solid black', padding: '10px',margin: '20px'}}>

@@ -40,7 +40,7 @@ input {
     font-style: bold;
 }
 
-button {
+.button {
     height: 5vh;
     width: 30vw;
     margin-bottom: 10px;

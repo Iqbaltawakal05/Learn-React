@@ -4,6 +4,9 @@ import MenuDetail from "../pages/MenuDetail"
 import Login from "../pages/Login"
 import Register from "../pages/Register"
 import ProtectedRoute from "./protectedroute"
+import Addmenu from "../pages/Addmenu"
+import Editmenu from "../pages/Editmenu"
+import Listmenu from "../pages/Listmenu"
 
 export const routeList = [
     {
@@ -21,10 +24,25 @@ export const routeList = [
         </ProtectedRoute>
     },
     {
-        path: "/menudetail/:id",
+        path: "/menu/:id",
         element: 
         <ProtectedRoute>
         <MenuDetail />
+        </ProtectedRoute>
+    },
+    {
+        path: "/List-menu",
+        element: 
+        <ProtectedRoute>
+        <Listmenu />
+        </ProtectedRoute>
+    },
+    {
+        path: "/Add-menu",
+        element:
+
+        <ProtectedRoute>
+        <Addmenu />
         </ProtectedRoute>
     },
     {
